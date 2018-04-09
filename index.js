@@ -3,6 +3,7 @@ const argv = process.argv;
 const parameter = argv[2];
 const value = argv[3];
 const mkrParams = ['cap', 'mat', 'tax', 'fee', 'axe', 'tubGap', 'tapGap', 'way', 'how'];
+const config = require('./config.json');
 
 if (argv.length === 2 || argv[2] === '--help') {
   console.log(
@@ -35,4 +36,16 @@ const { execSync } = require('child_process');
 const method = 'set' + parameter.charAt(0).toUpperCase() + parameter.slice(1);
 const valueUint = execSync('seth --to-uint256 ' + value);
 const calldata = execSync(`seth calldata '${method}(uint256)' ${valueUint}`);
-console.log(calldata.toString());
+console.log('Spell data: ' + calldata.toString());
+
+if (argv[4] === '--publish') {
+  const { spawn } = require('child_process');
+  const command = `seth send ${config.spellbook} 'make(address,uint256,bytes)' ${config.mom} 0 ${calldata}`;
+  console.log('> ' + command);
+  spawn(command, {
+    shell: true,
+    stdio: 'inherit'
+  });
+} else {
+  console.log('Add --publish at the end in order to create the spell on the blockchain.');
+}
