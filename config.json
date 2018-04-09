@@ -1,4 +1,10 @@
 {
-  "spellbook": "0x434ccfcfb94e184a6ca5161cd77e29481b3f29c9",
-  "mom": "0x8a70c067ab9b7cbde31527874fcafe7c39fe1197"
+  "ethlive": {
+    "spellbook": "0x730a0fd414288c1c5cfdadaa9b9aead059683659",
+    "mom": "0xf2c5369cffb8ea6284452b0326e326dbfdcb867c"
+  },
+  "kovan": {
+    "spellbook": "0x434ccfcfb94e184a6ca5161cd77e29481b3f29c9",
+    "mom": "0x72ee9496b0867dfe5e8b280254da55e51e34d27b"
+  }
 }

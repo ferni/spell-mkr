@@ -23,16 +23,21 @@ if (argv.length === 2 || argv[2] === '--help') {
 }
 
 if (!mkrParams.includes(parameter)) {
-  console.log('Unrecognized parameter "' + parameter + "'. Call spell --help for a list of valid parameters.");
-  process.exit();
+  throw 'Unrecognized parameter "' + parameter + "'. Call spell --help for a list of valid parameters.";
 }
 
 if (value === undefined) {
-  console.log('No value specified for ' + parameter);
-  process.exit();
+  throw 'No value specified for ' + parameter;
 }
 
 const { execSync } = require('child_process');
+let chain = execSync('seth chain');
+chain = chain.slice(0, chain.length - 1); // remove new line char
+if (!config[chain]) {
+  throw 'Chain ' + chain + ' not supported';
+} else {
+  console.log('Using Network: ' + chain);
+}
 const method = 'set' + parameter.charAt(0).toUpperCase() + parameter.slice(1);
 const valueUint = execSync('seth --to-uint256 ' + value);
 const calldata = execSync(`seth calldata '${method}(uint256)' ${valueUint}`);
@@ -40,7 +45,7 @@ console.log('Spell data: ' + calldata.toString());
 
 if (argv[4] === '--publish') {
   const { spawn } = require('child_process');
-  const command = `seth send ${config.spellbook} 'make(address,uint256,bytes)' ${config.mom} 0 ${calldata}`;
+  const command = `seth send ${config[chain].spellbook} 'make(address,uint256,bytes)' ${config[chain].mom} 0 ${calldata}`;
   console.log('> ' + command);
   spawn(command, {
     shell: true,
