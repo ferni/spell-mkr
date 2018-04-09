@@ -1,6 +1,6 @@
 {
   "name": "spell-mkr",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,5 +10,9 @@
   "license": "ISC",
   "bin": {
     "spell": "./index.js"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/ferni/spell-mkr.git"
   }
 }
