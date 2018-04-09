@@ -1,5 +1,5 @@
 {
-  "name": "spellcast",
+  "name": "spell-mkr",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,5 +8,7 @@
   },
   "author": "Fernando Tiberti",
   "license": "ISC",
-  "dependencies": {}
+  "bin": {
+    "spell": "./index.js"
+  }
 }
